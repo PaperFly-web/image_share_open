@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.OperationLogDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.OperationLogEntity" id="operationLogMap">
+        <result property="id" column="id"/>
+        <result property="operDesc" column="oper_desc"/>
+        <result property="operModule" column="oper_module"/>
+        <result property="operType" column="oper_type"/>
+        <result property="operUri" column="oper_uri"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operMethod" column="oper_method"/>
+        <result property="operRespParam" column="oper_resp_param"/>
+        <result property="operRequParam" column="oper_requ_param"/>
+        <result property="operVer" column="oper_ver"/>
+        <result property="reqMethodType" column="req_method_type"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+
+
+</mapper>

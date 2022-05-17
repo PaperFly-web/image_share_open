@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.PersonalMessageDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.PersonalMessageEntity" id="personalMessageMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="toUserId" column="to_user_id"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--
+    /**
+	 * 私信人ID
+	 */
+	private String userId;
+	/**
+	 * 被私信人ID
+	 */
+	private String toUserId;
+	/**
+	 * 私信内容
+	 */
+	private String content;
+	/**
+	 * 私信类型：0：文本：1：图片：2：分享的帖子ID
+	 */
+	private Integer type;
+
+	/**
+	 * 是否已读 0：未读，1：已读
+	 */
+	private Integer isRead;-->
+    <insert id="add" parameterType="com.paperfly.imageShare.entity.PersonalMessageEntity">
+        insert into personal_message(user_id, to_user_id, content, type, create_time, update_time, is_read)
+            value (#{userId}, #{toUserId}, #{content}, #{type}, #{createTime}, #{updateTime}, #{isRead})
+    </insert>
+    <select id="getCurrUserToUserPersonalMessage"
+            resultType="com.paperfly.imageShare.entity.PersonalMessageEntity" parameterType="com.paperfly.imageShare.entity.PersonalMessageEntity">
+        select *
+        from personal_message
+        where (user_id = #{el.userId} and to_user_id = #{el.toUserId})
+           or (user_id = #{el.toUserId} and to_user_id = #{el.userId})
+    </select>
+
+
+</mapper>

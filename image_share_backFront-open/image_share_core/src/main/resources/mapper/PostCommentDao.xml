@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.PostCommentDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.PostCommentEntity" id="postCommentMap">
+        <result property="id" column="id"/>
+        <result property="fatherCommentId" column="father_comment_id"/>
+        <result property="replayUserSnakeName" column="replay_user_snake_name"/>
+        <result property="originalContent" column="original_content"/>
+        <result property="handleContent" column="handle_content"/>
+        <result property="snakeName" column="snake_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="postId" column="post_id"/>
+        <result property="state" column="state"/>
+        <result property="thumbCount" column="thumb_count"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--<resultMap id="selectPostComment" type="com.paperfly.imageShare.dto.PostCommentDTO">
+        <id property="id" column="id"/>
+        <result property="fatherCommentId" column="father_comment_id"/>
+        <result property="replayUserSnakeName" column="replay_user_snake_name"/>
+        <result property="originalContent" column="original_content"/>
+        <result property="handleContent" column="handle_content"/>
+        <result property="snakeName" column="snake_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="postId" column="post_id"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        &lt;!&ndash;ofType="User" 是List元素中的类型&ndash;&gt;
+        <collection property="childrenPostComments" ofType="com.paperfly.imageShare.entity.PostCommentEntity">
+            <id property="id" column="id"/>
+            <result property="fatherCommentId" column="father_comment_id"/>
+            <result property="replayUserSnakeName" column="replay_user_snake_name"/>
+            <result property="originalContent" column="original_content"/>
+            <result property="handleContent" column="handle_content"/>
+            <result property="snakeName" column="snake_name"/>
+            <result property="userId" column="user_id"/>
+            <result property="postId" column="post_id"/>
+            <result property="state" column="state"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateTime" column="update_time"/>
+        </collection>
+    </resultMap>-->
+
+    <delete id="delete" parameterType="com.paperfly.imageShare.entity.PostCommentEntity">
+        delete
+        from post_comment
+        where (id = #{id} or father_comment_id = #{id})
+    </delete>
+    <insert id="add" parameterType="com.paperfly.imageShare.entity.PostCommentEntity">
+        insert into post_comment(id, father_comment_id, replay_user_snake_name, original_content, handle_content,
+                                 snake_name, user_id, post_id, state, thumb_count, create_time, update_time)
+        select #{id},
+               #{fatherCommentId},
+               #{replayUserSnakeName},
+               #{originalContent},
+               #{handleContent},
+               #{snakeName},
+               #{userId},
+               #{postId},
+               #{state},
+               #{thumbCount},
+               #{createTime},
+               #{updateTime}
+        from post
+        where post.id = #{postId}
+          and post.is_open_comment = 1
+    </insert>
+
+
+</mapper>

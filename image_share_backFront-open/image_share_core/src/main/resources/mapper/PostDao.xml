@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.PostDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.PostEntity" id="postMap">
+        <result property="id" column="id"/>
+        <result property="place" column="place"/>
+        <result property="originalContent" column="original_content"/>
+        <result property="handleContent" column="handle_content"/>
+        <result property="imagesPath" column="images_path"/>
+        <result property="topic" column="topic"/>
+        <result property="userId" column="user_id"/>
+        <result property="state" column="state"/>
+        <result property="thumbCount" column="thumb_count"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="favoriteCount" column="favorite_count"/>
+        <result property="isOpenComment" column="is_open_comment"/>
+        <result property="country" column="country"/>
+        <result property="region" column="region"/>
+        <result property="city" column="city"/>
+        <result property="area" column="area"/>
+        <result property="isp" column="isp"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getCurrUserRecommendPostPage" resultMap="postMap"
+            resultType="com.paperfly.imageShare.entity.PostEntity">
+        select p.id,
+               p.place,
+               p.handle_content,
+               p.images_path,
+               p.topic,
+               p.user_id,
+               p.state,
+               p.thumb_count,
+               p.comment_count,
+               p.view_count,
+               p.favorite_count,
+               p.is_open_comment,
+               p.country,
+               p.region,
+               p.city,
+               p.area,
+               p.isp,
+               p.is_deleted,
+               p.create_time,
+               p.update_time
+        from recommended r
+                 left join post p on r.post_id = p.id
+        where r.user_id = #{userId}
+          and p.is_deleted = 0
+          and p.state != 2
+          and p.state != 3
+        order by r.create_time desc, r.score desc
+    </select>
+    <select id="getPostByPostCommentId" resultType="com.paperfly.imageShare.entity.PostEntity">
+        select p.id,
+               p.place,
+               p.handle_content,
+               p.images_path,
+               p.topic,
+               p.user_id,
+               p.state,
+               p.thumb_count,
+               p.comment_count,
+               p.view_count,
+               p.favorite_count,
+               p.is_open_comment,
+               p.country,
+               p.region,
+               p.city,
+               p.area,
+               p.isp,
+               p.is_deleted,
+               p.create_time,
+               p.update_time
+        from post p
+                 join post_comment pc on p.id = pc.post_id
+        where pc.id = #{postCommentId}
+          and p.state != 2
+          and p.state != 3
+          and p.is_deleted = 0
+    </select>
+</mapper>

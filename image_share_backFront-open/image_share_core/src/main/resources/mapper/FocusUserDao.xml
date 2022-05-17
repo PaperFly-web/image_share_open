@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.FocusUserDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.FocusUserEntity" id="focusUserMap">
+        <result property="id" column="id"/>
+        <result property="userIdOne" column="user_id_one"/>
+        <result property="userIdTwo" column="user_id_two"/>
+        <result property="type" column="type"/>
+        <result property="focusTimeOne" column="focus_time_one"/>
+        <result property="focusTimeTwo" column="focus_time_two"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="getUserFocus">
+        select *
+        from focus_user
+        where (user_id_one = #{userId} and type = 1)
+           or (user_id_two = #{userId} and type = 2)
+           or ((user_id_one = #{userId} or user_id_two = #{userId}) and type = 3)
+    </sql>
+
+    <sql id="getUserFans">
+        select *
+        from focus_user
+        where (user_id_one = #{userId} and type = 2)
+           or (user_id_two = #{userId} and type = 1)
+           or ((user_id_one = #{userId} or user_id_two = #{userId}) and type = 3)
+    </sql>
+
+    <select id="getUserFocusUsers" resultMap="focusUserMap">
+        <include refid="getUserFocus"/>
+    </select>
+
+    <select id="getUserFocusUsersPage" resultMap="focusUserMap">
+        <include refid="getUserFocus"/>
+    </select>
+
+    <select id="getUserFansUsersPage" resultMap="focusUserMap">
+        <include refid="getUserFans"/>
+    </select>
+
+    <select id="getFocusCount" resultType="long">
+        select count(*)
+        from focus_user
+        where (user_id_one = #{userId} and type = 1)
+           or (user_id_two = #{userId} and type = 2)
+           or ((user_id_one = #{userId} or user_id_two = #{userId}) and type = 3)
+    </select>
+
+    <select id="getFansCount" resultType="long">
+        select count(*)
+        from focus_user
+        where (user_id_one = #{userId} and type = 2)
+           or (user_id_two = #{userId} and type = 1)
+           or ((user_id_one = #{userId} or user_id_two = #{userId}) and type = 3)
+    </select>
+
+    <select id="getUserFocusUser" resultMap="focusUserMap">
+        select *
+        from focus_user
+        where (user_id_one = #{userIdOne} and user_id_two = #{userIdTwo} and  type = #{type})
+           or ((user_id_one = #{userIdOne} and user_id_two = #{userIdTwo}) and type = 3)
+    </select>
+
+
+</mapper>

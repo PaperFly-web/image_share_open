@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.UserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.UserEntity" id="userMap">
+        <result property="id" column="id"/>
+        <result property="state" column="state"/>
+        <result property="snakeName" column="snake_name"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="signature" column="signature"/>
+        <result property="sex" column="sex"/>
+        <result property="role" column="role"/>
+        <result property="password" column="password"/>
+        <result property="loginTime" column="login_time"/>
+        <result property="headImage" column="head_image"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+    <select id="findUserByIdOrSnakeNameOrName" resultType="com.paperfly.imageShare.entity.UserEntity">
+        select * from user where id=#{param} or snake_name=#{param} or username=#{param}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.ReportDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.ReportEntity" id="reportMap">
+        <result property="id" column="id"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="auditTime" column="audit_time"/>
+        <result property="reportTypeId" column="report_type_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="reportId" column="report_id"/>
+        <result property="state" column="state"/>
+        <result property="reportContent" column="report_content"/>
+        <result property="reportType" column="report_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

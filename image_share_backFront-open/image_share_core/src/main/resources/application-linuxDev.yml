@@ -1,0 +1,92 @@
+spring:
+  kafka:
+    bootstrap-servers: linux1:9092,linux2:9092,linux3:9092
+    #生产者的配置，大部分我们可以使用默认的，这里列出几个比较重要的属性
+    producer:
+      #每批次发送消息的数量
+      batch-size: 16
+      #设置大于0的值将使客户端重新发送任何数据，一旦这些数据发送失败。注意，这些重试与客户端接收到发送错误时的重试没有什么不同。允许重试将潜在的改变数据的顺序，如果这两个消息记录都是发送到同一个partition，则第一个消息失败第二个发送成功，则第二条消息会比第一条消息出现要早。
+      retries: 0
+      #producer可以用来缓存数据的内存大小。如果数据产生速度大于向broker发送的速度，producer会阻塞或者抛出异常，以“block.on.buffer.full”来表明。这项设置将和producer能够使用的总内存相关，但并不是一个硬性的限制，因为不是producer使用的所有内存都是用于缓存。一些额外的内存会用于压缩（如果引入压缩机制），同样还有一些用于维护请求。
+      buffer-memory: 33554432
+      #key序列化方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    #消费者的配置
+    consumer:
+      #Kafka中没有初始偏移或如果当前偏移在服务器上不再存在时,默认区最新 ，有三个选项 【latest, earliest, none】
+      auto-offset-reset: latest
+      #是否开启自动提交
+      enable-auto-commit: true
+      #自动提交的时间间隔
+      auto-commit-interval: 100
+      #key的解码方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      #value的解码方式
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      #在/opt/module/kafka/config/consumer.properties中有配置
+      group-id: paperfly
+  #这个是QQ的授权码，防止用QQ邮箱的密码登录，不安全
+  mail:
+    password: QQ邮箱授权码
+    username: 你的QQ邮箱
+    #这个是让你连接到QQ邮箱的服务器
+    host: smtp.qq.com
+  redis:
+    host: linux1
+    port: 6379
+    password: 123456
+
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://linux1:3306/image_share?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      maxWait: 60000
+  mvc:
+    servlet:
+      load-on-startup: 1
+  servlet:
+    multipart:
+      max-file-size: 1000000000
+      max-request-size: 2000000000
+  thymeleaf:
+    enabled: true
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    check-template-location: true
+    check-template: false
+    cache: false # 调试时关闭缓存
+    prefix: classpath:/templates/
+    suffix: .html
+  elasticsearch:
+    useIndex: image_share_post
+    rest:
+      uris:
+      - linux_baidu:9200
+logging:
+  level:
+    com.cslg.mapper: info
+baidu:
+  auth:
+    clientId: 百度的key
+    clientSecret: 百度的秘钥
+aliyun:
+#创建子账户，使用子账户的key与secret
+  accessKeyId: 阿里的key
+  accessKeySecret: 阿里的秘钥
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    endpointID: cn-beijing
+    bucketName: image-share-image
+
+imageShare:
+  defaultHeadImage: head_image/default_head_image.jpg
+  loginBgFolder: static/bg/login/

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.ExcepLogDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.ExcepLogEntity" id="excepLogMap">
+        <result property="id" column="id"/>
+        <result property="excRequParam" column="exc_requ_param"/>
+        <result property="operMethod" column="oper_method"/>
+        <result property="excName" column="exc_name"/>
+        <result property="excMessage" column="exc_message"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="operUri" column="oper_uri"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="operVer" column="oper_ver"/>
+        <result property="excResqParam" column="exc_resq_param"/>
+        <result property="reqMethodType" column="req_method_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,14 @@
+server:
+   port: 8002
+spring:
+  profiles:
+    active: linuxDev
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.paperfly.imageShare.entity
+
+imageShare:
+  ver: 1.0.0

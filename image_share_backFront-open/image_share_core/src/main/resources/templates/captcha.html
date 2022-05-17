@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮箱验证码</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px;
+        }
+
+        .card-body {
+            border: 0px solid #ff0000;
+            border-radius: 10px;
+            background-color: #dc3545!important;
+        }
+
+        #title {
+            border: 0px solid red;
+            background-color: #6c757d!important;
+        }
+
+        #title,
+        #details {
+            padding: .75rem 1.25rem;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="card" style="width: 18rem;" >
+    <div class="card-body">
+
+        <div id="title">
+            <h2 id="ip">邮箱验证码，有效期[[${expireTime}]]分钟</h2>
+        </div>
+
+
+        <div id="details">
+            <h5 class="card-title" th:text="${captcha}" style="color: rgb(95, 3, 3);text-align: center;"></h5>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

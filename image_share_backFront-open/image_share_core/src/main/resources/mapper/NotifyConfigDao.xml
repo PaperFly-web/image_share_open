@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paperfly.imageShare.dao.NotifyConfigDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.paperfly.imageShare.entity.NotifyConfigEntity" id="notifyConfigMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="thumb" column="thumb"/>
+        <result property="comment" column="comment"/>
+        <result property="commentThumb" column="comment_thumb"/>
+        <result property="favorite" column="favorite"/>
+        <result property="follow" column="follow"/>
+        <result property="personalMessage" column="personal_message"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>
